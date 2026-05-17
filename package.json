@@ -1,0 +1,17 @@
+{
+  "name": "firmenabc-scraper-playbook",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "description": "FirmenABC public company data collection playbook with sample-first crawling and delivery checks",
+  "scripts": {
+    "sample": "node scripts/collect_sample.mjs --targets examples/targets.sample.json --limit 5 --output output/firmenabc.sample.jsonl",
+    "validate": "node scripts/validate_output.mjs examples/firmenabc.sample.jsonl",
+    "summary": "node scripts/build_summary.mjs examples/firmenabc.sample.jsonl --output output/summary.sample.md"
+  },
+  "dependencies": {
+    "playwright": "^1.57.0"
+  },
+  "devDependencies": {}
+}
+
