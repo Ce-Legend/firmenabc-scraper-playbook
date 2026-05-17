@@ -1,16 +1,16 @@
 # FirmenABC Scraper Playbook
 
-FirmenABC 企业信息采集的一份实战 playbook：从城市/地区列表页进入企业详情页，抽取公开展示的公司名称、邮箱、地址、电话、网站和来源 URL，再生成可校验的数据文件。
+FirmenABC 企业信息采集的一份实战 playbook：从城市/地区列表页进入企业详情页，抽取公开展示的公司名称、邮箱、地址、电话、网站和来源 URL，最后生成可校验的数据文件。
 
 [快速开始](#-快速开始) · [字段口径](docs/02-field-contract.md) · [长跑记录](docs/03-long-run-notes.md) · [交付校验](docs/04-delivery-checks.md)
 
 | 输入 | 输出 | 最值得参考的点 |
 |---|---|---|
-| FirmenABC 城市/地区 URL 列表 | JSONL / CSV / 城市统计 / 失败列表 | 样例先行、分页覆盖、无邮箱保留、失败可回查 |
+| FirmenABC 城市/地区 URL 列表 | JSONL / CSV / 城市统计 / 失败列表 | 小样例验字段、分页覆盖、无邮箱保留、失败可回查 |
 
 ## 🚀 快速开始
 
-先跑脱敏样例校验：
+运行脱敏样例校验：
 
 ```bash
 npm install
@@ -32,13 +32,13 @@ output/firmenabc.sample.jsonl
 output/firmenabc.sample.csv
 ```
 
-如果现场返回 `429`，脚本会把地区列表页记成 `request_failed`，后面可以降速、换时间或接入已登录浏览器再重试。
+如果现场返回 `429`，脚本会把地区列表页记成 `request_failed`，后续可以降速、换时间或接入已登录浏览器重试。
 
 ## 这次采集怎么走
 
 ```mermaid
 graph TD
-  A["确认地区 URL"] --> B["先跑 1 个小样例"]
+  A["确认地区 URL"] --> B["小样例验字段"]
   B --> C["客户确认字段"]
   C --> D["按城市/区拆分长跑"]
   D --> E["详情页抽取公开字段"]
@@ -47,7 +47,7 @@ graph TD
   G --> H["抽样回查 source_url"]
 ```
 
-这个流程的重点很简单：先把字段和格式确认清楚，再全量跑。采集失败、无邮箱、字段缺失都要保留下来，方便后面解释。
+这个流程的重点很简单：字段和格式确认清楚以后，全量采集才有意义。采集失败、无邮箱、字段缺失都要保留下来，方便后面解释。
 
 ## 输出长什么样
 
@@ -92,7 +92,7 @@ examples/
   firmenabc.sample.jsonl  脱敏输出样例
 
 docs/
-  01-sample-first.md      样例先行流程
+  01-sample-first.md      小样例确认字段
   02-field-contract.md    字段口径
   03-long-run-notes.md    长跑、分页、续跑记录
   04-delivery-checks.md   交付前怎么验
